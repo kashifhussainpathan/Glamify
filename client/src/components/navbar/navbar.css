@@ -1,0 +1,41 @@
+.navbar {
+  box-shadow: var(--box-shadow);
+  color: var(--text-color);
+  height: 10vh;
+  justify-content: space-between;
+  opacity: 0.85;
+  position: sticky;
+  width: 100%;
+  z-index: 100;
+  padding: 0 5rem;
+}
+
+.navbar .navbar-items {
+  align-items: center;
+  gap: 1.7rem;
+}
+
+.navbar a {
+  font-size: 1.7rem;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.navbar a img {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--background-color);
+}
+
+.navbar-cloth-category {
+  gap: 1rem;
+}
+
+.navbar-men-women {
+  display: block;
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
