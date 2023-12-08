@@ -8,12 +8,33 @@ dotenv.config({ path: "./config.env" });
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-  const salt = await bcryptjs.genSalt(10);
-  const hashedPassword = await bcryptjs.hash(password, salt);
-
-  const newUser = new User({ username, email, password: hashedPassword });
 
   try {
+    const isEmailExist = await User.findOne({ email });
+
+    if (isEmailExist)
+      return next(
+        errorHandler(
+          400,
+          "This email is already associated with an existing account. Please use a different email address."
+        )
+      );
+
+    const isUsernameExist = await User.findOne({ username });
+
+    if (isUsernameExist)
+      return next(
+        errorHandler(
+          400,
+          "This username is already taken. Please choose a different username."
+        )
+      );
+
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
+
+    const newUser = new User({ username, email, password: hashedPassword });
+
     await newUser.save();
     res.status(201).json("User created successfully!");
   } catch (error) {
@@ -25,12 +46,10 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
-    console.log(validUser);
+
     if (!validUser) return next(errorHandler(404, "User not found!"));
 
     const validPassword = await bcryptjs.compare(password, validUser.password);
-
-    console.log(validPassword);
 
     if (!validPassword) return next(errorHandler(401, "Invalid credentials!"));
 
