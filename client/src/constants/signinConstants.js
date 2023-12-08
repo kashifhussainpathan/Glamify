@@ -4,7 +4,7 @@ export const signInInputs = [
     name: "email",
     type: "email",
     placeholder: "Email",
-    errorMessage: "It should be a valid email address!",
+    errorMessage: "Please enter a valid email address!",
     label: "Email",
     required: true,
   },
