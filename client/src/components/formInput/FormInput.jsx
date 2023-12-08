@@ -1,4 +1,3 @@
-import "./formInput.css";
 import { useState } from "react";
 
 const FormInput = (props) => {
@@ -10,8 +9,8 @@ const FormInput = (props) => {
   };
 
   return (
-    <div className="formInput">
-      <label>{label}</label>
+    <div className="flex flex-col w-80 mb-3">
+      <label className="mb-1">{label}</label>
       <input
         {...inputProps}
         onChange={onChange}
@@ -19,9 +18,13 @@ const FormInput = (props) => {
         onFocus={() =>
           inputProps.name === "confirmPassword" && setFocused(true)
         }
-        focused={focused.toString()}
+        className={`${
+          focused && inputProps.value === "" ? "border-red-500" : ""
+        } p-2 border border-gray-300 rounded`}
       />
-      <span>{errorMessage}</span>
+      {focused && inputProps.value === "" && (
+        <span className="text-xs text-red-500">{errorMessage}</span>
+      )}
     </div>
   );
 };

@@ -6,10 +6,9 @@ import { Cart, Home, Products, Profile } from "./pages";
 
 function App() {
   const user = useSelector(({ user }) => user.currentUser);
-  console.log(user);
 
   return (
-    <>
+    <div className="bg-slate-50 h-screen">
       <Navbar />
 
       <div className="app-routes">
@@ -20,7 +19,7 @@ function App() {
           <Route path="/products" element={<Products />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 }
 

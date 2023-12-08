@@ -1,12 +1,10 @@
 import React from "react";
-import HomeSlider from "./components/HomeSlider";
-import OurBenifits from "./components/OurBenifits";
+import { HomeSlider } from "../../components";
 
 const Home = () => {
   return (
     <div>
       <HomeSlider />
-      <OurBenifits />
     </div>
   );
 };

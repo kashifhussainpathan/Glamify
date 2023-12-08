@@ -1,12 +1,12 @@
-import "./signup.css";
 import { useState } from "react";
 import { inputs } from "../../constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signupAsync } from "../../redux";
 import FormInput from "../formInput/FormInput";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const error = useSelector(({ user }) => user.error);
 
   const [values, setValues] = useState({
     username: "",
@@ -37,10 +37,12 @@ const Signup = () => {
   });
 
   return (
-    <div className="signup flex">
-      <>
-        <form onSubmit={handleSubmit}>
-          <h2>Register</h2>
+    <div className="flex items-center justify-center h-[90vh]">
+      <div className="bg-white p-6 rounded shadow-small">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <div className="text-2xl mt-[-10px] mb-1 font-semibold ">
+            Register
+          </div>
           {dynamicInputs.map((input) => (
             <FormInput
               key={input.id}
@@ -49,9 +51,13 @@ const Signup = () => {
               onChange={onChange}
             />
           ))}
-          <button>REGISTER</button>
+          <button className="bg-slate-700 text-white p-6 mt-2 py-2 rounded hover:bg-slate-600 w-full font-semibold">
+            REGISTER
+          </button>
         </form>
-      </>
+
+        {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
+      </div>
     </div>
   );
 };

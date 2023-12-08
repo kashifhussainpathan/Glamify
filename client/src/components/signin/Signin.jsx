@@ -1,4 +1,3 @@
-import "./signin.css";
 import React, { useState } from "react";
 import { signInInputs } from "../../constants";
 import FormInput from "../formInput/FormInput";
@@ -8,8 +7,6 @@ import { signinAsync } from "../../redux/user/userThunk";
 const Signin = () => {
   const dispatch = useDispatch();
   const error = useSelector(({ user }) => user.error);
-
-  console.log(error);
 
   const [values, setValues] = useState({
     email: "",
@@ -26,22 +23,23 @@ const Signin = () => {
   };
 
   return (
-    <div className="signin flex">
-      <div>
-        <form onSubmit={handleSubmit}>
-          <h2>SignIn</h2>
+    <div className="flex items-center justify-center h-[90vh]">
+      <div className="bg-white p-6 rounded shadow-small">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
+          <div className="text-2xl mt-[-10px] mb-1 font-semibold ">Sign In</div>
           {signInInputs.map((input) => (
             <FormInput
               key={input.id}
               {...input}
-              value={values[input.name]}
+              value={values[input.name] || ""}
               onChange={onChange}
             />
           ))}
-          <button>SIGN IN</button>
+          <button className="bg-slate-700 text-white p-6 mt-2 py-2 rounded hover:bg-slate-600 w-full font-semibold">
+            SIGN IN
+          </button>
         </form>
-
-        <p className="error">{error ? error : ""}</p>
+        {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
       </div>
     </div>
   );
