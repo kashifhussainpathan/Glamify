@@ -1,6 +1,5 @@
 // import Slider from "react-slick";
 import React, { useEffect, useState } from "react";
-import { Box, Image, Flex } from "@chakra-ui/react";
 
 import { sliderImage1 } from "../../assets";
 import { sliderImage2 } from "../../assets";
@@ -37,7 +36,7 @@ const HomeSlider = () => {
         {slides.map((slide, index) => (
           <div key={index} className="w-full flex-shrink-0">
             <img
-              className="rounded-8 mx-auto w-full"
+              className="rounded-8 mx-auto w-full rounded"
               src={slide}
               alt={`Slide ${index + 1}`}
             />
