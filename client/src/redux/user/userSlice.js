@@ -10,7 +10,13 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      console.log(action.payload);
+      state.currentUser === action.payload;
+    },
+  },
+
   extraReducers: (builder) => {
     builder.addCase(signupAsync.pending, (state) => {
       state.status = "loading";
@@ -18,12 +24,12 @@ const userSlice = createSlice({
 
     builder.addCase(signupAsync.fulfilled, (state, action) => {
       state.status = "success";
-      console.log(action.payload);
+      state.error = "";
     });
 
     builder.addCase(signupAsync.rejected, (state, action) => {
       state.status = "error";
-      state.error = action.payload.error.message;
+      state.error = action.payload.message;
     });
 
     builder.addCase(signinAsync.pending, (state) => {
@@ -42,5 +48,7 @@ const userSlice = createSlice({
     });
   },
 });
+
+export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;
