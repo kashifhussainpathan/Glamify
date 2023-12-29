@@ -1,49 +1,94 @@
-import { useState } from "react";
-import { getMenProducts } from "../../redux";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  Filters,
-  Pagination,
-  ProductCard,
-  ProductLoader,
-} from "../../components";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { Button } from "@components/@ui";
+import { useGetGenderFromPath } from "@hooks";
+import { LiaFilterSolid } from "react-icons/lia";
+import { useFiltersState, useProductsState } from "@hooks";
+import { getProducts, getFilters, removeFilters } from "@redux";
+import { Filters, Pagination, ProductCard, ProductLoader } from "@components";
 
 const Products = () => {
   const dispatch = useDispatch();
-  const { menProducts, status, totalProducts } = useSelector(
-    ({ products }) => products
-  );
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(parseInt(totalProducts) / 20) || 20;
+  const { gender } = useParams();
+  const { filters } = useFiltersState();
+  const { gender: genderFromPath } = useGetGenderFromPath();
+  const { products, status, currentPage: page } = useProductsState();
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    dispatch(getMenProducts(page));
+  const [toggleFilters, setToggleFilters] = useState(false);
+
+  const genderToGetProducts = gender || genderFromPath;
+
+  useEffect(() => {
+    dispatch(getFilters({ gender }));
+    if (!products.length > 0) {
+      dispatch(getProducts({ page, gender: genderToGetProducts, filters }));
+    }
+  }, [gender]);
+
+  const handleApplyFiltersClick = () => {
+    dispatch(getProducts({ page, gender: genderToGetProducts, filters }));
+  };
+
+  const handleRemoveFiltersClick = () => {
+    dispatch(removeFilters());
+    const filters = {
+      rating: 0,
+      sizes: [],
+      brands: [],
+      colors: [],
+      categories: [],
+      priceRange: { min: 0, max: 0 },
+    };
+    dispatch(getProducts({ page, gender: genderToGetProducts, filters }));
+  };
+
+  useEffect(() => {
+    setToggleFilters(false);
+  }, []);
+
+  const HandleToggleFilters = () => {
+    setToggleFilters(!toggleFilters);
   };
 
   return (
-    <div className="flex">
-      <div>
+    <div className="flex items-start">
+      <div
+        className={`max-md:fixed max-md:z-50 max-md:px-4 max-md:bg-slate-50 transition-all transform duration-500 ease-in-out max-md:rounded ${
+          !toggleFilters ? "max-md:left-[-300px]" : "max-md:left-0"
+        }`}
+      >
         <Filters />
       </div>
 
-      <div className="w-[80%] m-auto">
-        <div className="flex flex-wrap gap-2 mt-4">
+      <div
+        className="hidden max-md:block max-md:fixed max-md:bottom-6 max-md:right-4 max-md:z-50 max-md:text-lg max-md:font-semibold max-md:bg-slate-50 max-md:shadow max-md:p-2 max-lg:rounded"
+        onClick={HandleToggleFilters}
+      >
+        <LiaFilterSolid />
+      </div>
+
+      <div className="w-[100%] mx-auto">
+        <div className="flex justify-end mt-4 gap-2">
+          <Button onClick={handleApplyFiltersClick}>Apply Filters</Button>
+          <Button onClick={handleRemoveFiltersClick}>Remove Filters</Button>
+        </div>
+
+        <div className="grid grid-cols-1 max-md:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-items-center  gap-4 mt-2">
           {status === "loading"
-            ? Array.from({ length: totalPages }).map((_, i) => (
-                <ProductLoader />
+            ? Array.from({ length: 20 }).map((_, i) => (
+                <ProductLoader key={i} />
               ))
-            : menProducts?.map((product) => (
-                <ProductCard {...product} key={product.sku} />
+            : products?.map((product) => (
+                <ProductCard product={product} key={product._id} />
               ))}
         </div>
 
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onChangePage={handlePageChange}
-        />
+        {!products?.length && <div> No products found. </div>}
+
+        {products?.length > 0 && <Pagination />}
       </div>
     </div>
   );
