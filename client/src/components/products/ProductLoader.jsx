@@ -21,7 +21,7 @@ const ProductLoader = () => {
       <div>
         <div className="flex items-center gap-2">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton count={1} width={10} />
+            <Skeleton count={1} width={10} key={i} />
           ))}{" "}
           <Skeleton count={1} width={25} />
         </div>
