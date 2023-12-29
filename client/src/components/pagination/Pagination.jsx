@@ -1,6 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
-const Pagination = ({ currentPage, totalPages, onChangePage }) => {
+import { useFiltersState } from "@hooks";
+import { getProducts, setCurrentPage } from "@redux";
+import { useProductsState, useGetGenderFromPath } from "@hooks";
+
+const Pagination = () => {
+  const dispatch = useDispatch();
+  const { filters } = useFiltersState();
+  const { gender: genderFromPath } = useGetGenderFromPath();
+  const { totalProducts, currentPage } = useProductsState();
+
+  const totalPages = Math.ceil(parseInt(totalProducts) / 20) || 20;
+
+  const handlePageChange = (page) => {
+    dispatch(setCurrentPage(page));
+    dispatch(getProducts({ page, gender: genderFromPath, filters }));
+  };
+
   const getPageNumbers = () => {
     const pageNumbers = [];
     const totalVisiblePages = 5;
@@ -49,7 +66,7 @@ const Pagination = ({ currentPage, totalPages, onChangePage }) => {
       {currentPage > 1 && (
         <button
           className="px-2 py-1 mr-2 border rounded hover:bg-gray-200"
-          onClick={() => onChangePage(currentPage - 1)}
+          onClick={() => handlePageChange(currentPage - 1)}
         >
           Previous
         </button>
@@ -64,7 +81,7 @@ const Pagination = ({ currentPage, totalPages, onChangePage }) => {
               className={`px-2 py-1 mx-1 border rounded focus:outline-none hover:bg-gray-200 ${
                 currentPage === page ? "bg-gray-200" : ""
               }`}
-              onClick={() => onChangePage(page)}
+              onClick={() => handlePageChange(page)}
             >
               {page}
             </button>
@@ -75,7 +92,7 @@ const Pagination = ({ currentPage, totalPages, onChangePage }) => {
       {currentPage < totalPages && (
         <button
           className="px-2 py-1 ml-2 border rounded hover:bg-gray-200"
-          onClick={() => onChangePage(currentPage + 1)}
+          onClick={() => handlePageChange(currentPage + 1)}
         >
           Next
         </button>
