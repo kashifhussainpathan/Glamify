@@ -1,11 +1,10 @@
-// import Slider from "react-slick";
 import React, { useEffect, useState } from "react";
 
-import { sliderImage1 } from "../../assets";
-import { sliderImage2 } from "../../assets";
-import { sliderImage3 } from "../../assets";
-import { sliderImage4 } from "../../assets";
-import { sliderImage5 } from "../../assets";
+import { sliderImage1 } from "@assets";
+import { sliderImage2 } from "@assets";
+import { sliderImage3 } from "@assets";
+import { sliderImage4 } from "@assets";
+import { sliderImage5 } from "@assets";
 
 const HomeSlider = () => {
   const slides = [
@@ -28,7 +27,8 @@ const HomeSlider = () => {
   }, [currentSlide, slides.length]);
 
   return (
-    <div className="w-90 sm:w-90 md:w-90 lg:w-85 mx-auto mt-4 overflow-hidden relative">
+    //w-90 sm:w-90 md:w-90 lg:w-8
+    <div className="max-md:w-full mx-auto mt-4 overflow-hidden relative">
       <div
         className="flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -43,7 +43,8 @@ const HomeSlider = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-2">
+
+      <div className="flex justify-center mt-2 absolute z-10 bottom-2 left-[50%] transform translate-x-[-50%] max-md:hidden">
         {slides.map((_, index) => (
           <div
             key={index}
