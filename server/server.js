@@ -2,7 +2,7 @@ import cors from "cors";
 import db from "./db.js";
 import dotenv from "dotenv";
 import express from "express";
-import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import productsRouter from "./routes/product.route.js";
 
@@ -16,19 +16,18 @@ const app = express();
 app.use(
   cors({
     origin: "http://localhost:5173",
-    credentials: true, // Allow cookies to be sent and received
+    credentials: true,
   })
 );
 
 app.use(express.json());
-
-app.use(cookieParser());
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}! `);
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 app.use("/api/products", productsRouter);
 
 app.use((err, req, res, next) => {
