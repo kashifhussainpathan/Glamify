@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signinAsync, signupAsync } from "./userThunk";
+import {
+  getUser,
+  signinAsync,
+  signupAsync,
+  updateUserDetails,
+} from "./userThunk";
 
 const initialState = {
-  currentUser: null,
   error: null,
   status: "idle",
+  currentUser: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {
-    setUser: (state, action) => {
-      console.log(action.payload);
-      state.currentUser === action.payload;
-    },
-  },
+  reducers: {},
 
   extraReducers: (builder) => {
     builder.addCase(signupAsync.pending, (state) => {
@@ -37,18 +37,50 @@ const userSlice = createSlice({
     });
 
     builder.addCase(signinAsync.fulfilled, (state, action) => {
-      state.status = "success";
-      state.currentUser = action.payload.data;
+      const user = action.payload.user;
+      const token = action.payload.token;
       state.error = "";
+      state.status = "success";
+      state.currentUser = user;
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", token);
     });
 
     builder.addCase(signinAsync.rejected, (state, action) => {
       state.status = "error";
       state.error = action.payload.message;
     });
+
+    builder.addCase(getUser.pending, (state) => {
+      state.status = "loading";
+    });
+
+    builder.addCase(getUser.fulfilled, (state, action) => {
+      state.error = "";
+      state.status = "success";
+      state.currentUser = action.payload;
+    });
+
+    builder.addCase(getUser.rejected, (state, action) => {
+      state.status = "error";
+      localStorage.removeItem("token");
+    });
+
+    builder.addCase(updateUserDetails.pending, (state) => {
+      state.status = "loading";
+    });
+
+    builder.addCase(updateUserDetails.fulfilled, (state, action) => {
+      state.error = "";
+      state.status = "success";
+      state.currentUser = action.payload;
+    });
+
+    builder.addCase(updateUserDetails.rejected, (state, action) => {
+      state.status = "error";
+      alert(action.payload.message);
+    });
   },
 });
-
-export const { setUser } = userSlice.actions;
 
 export default userSlice.reducer;
