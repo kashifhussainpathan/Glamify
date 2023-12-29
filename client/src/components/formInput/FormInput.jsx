@@ -9,7 +9,7 @@ const FormInput = (props) => {
   };
 
   return (
-    <div className="flex flex-col w-80 mb-3">
+    <div className="flex flex-col w-80 mb-3 max-md:w-48">
       <label className="mb-1">{label}</label>
       <input
         {...inputProps}
