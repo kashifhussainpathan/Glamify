@@ -7,7 +7,7 @@ const mongoURL = process.env.MONGODB;
 const connect = async () => {
   try {
     await mongoose.connect(mongoURL, {
-      dbName: "EatEasy",
+      dbName: "Glamify",
     });
     console.log("Connected to MongoDB");
   } catch (err) {
