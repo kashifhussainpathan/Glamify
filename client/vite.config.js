@@ -5,12 +5,24 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
 
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://localhost:4000",
-        secure: false,
-      },
+  resolve: {
+    alias: {
+      "@hooks": "/src/hooks",
+      "@redux": "/src/redux",
+      "@pages": "/src/pages",
+      "@assets": "/src/assets",
+      "@constants": "/src/constants",
+      "@components": "/src/components",
     },
   },
+
+  // server: {
+  //   proxy: {
+  //     "/api": {
+  //       target: "http://localhost:4000",
+  //       changeOrigin: true,
+  //       secure: false,
+  //     },
+  //   },
+  // },
 });
