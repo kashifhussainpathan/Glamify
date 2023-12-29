@@ -16,6 +16,7 @@ export default {
         lg: "960px",
         lgl: "1024px",
         xl: "1280px",
+        "2xl": "1400px",
       },
 
       colors: {
@@ -25,7 +26,7 @@ export default {
         designColor: "#6366f1",
       },
       boxShadow: {
-        small: "0px 4px 8px rgba(35, 38, 59, 0.25)",
+        small: "0px 0px 3px 0px rgba(0, 0, 0, 0.15)",
         medium: "0px 8px 16px rgba(35, 38, 59, 0.25)",
         large: "0px 12px 32px rgba(35, 38, 59, 0.25)",
       },
@@ -42,6 +43,16 @@ export default {
         3: "3",
         4: "4",
         5: "5",
+      },
+      zIndex: {
+        60: 60,
+        70: 70,
+        80: 80,
+        90: 90,
+        100: 100,
+        999: 999,
+        1000: 1000,
+        9999: 9999,
       },
     },
   },
