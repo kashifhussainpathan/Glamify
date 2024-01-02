@@ -19,7 +19,7 @@ const Brands = () => {
 
   return (
     <div className="px-1 ">
-      {brands.map((brand) => (
+      {brands?.map((brand) => (
         <div key={brand} className="flex gap-1 items-center cursor-pointer">
           <input
             type="checkbox"

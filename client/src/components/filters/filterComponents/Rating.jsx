@@ -13,9 +13,8 @@ const Rating = () => {
   const ratingArray = Array.from({ length: 5 }, (_, index) => index + 1);
 
   const handleStarClick = (rating) => () => {
-    rating = filters.rating === rating ? rating - 1 : rating;
-
-    dispatch(setFilters({ rating }));
+    const newRating = filters.rating === rating ? "0" : rating;
+    dispatch(setFilters({ rating: newRating }));
   };
 
   return (
