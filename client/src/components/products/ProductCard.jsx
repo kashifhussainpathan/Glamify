@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -7,25 +7,39 @@ import {
   MdShoppingCart,
   MdOutlineShoppingCart,
 } from "react-icons/md";
-import { useCartState } from "@hooks";
+import { useToken, useCartState } from "@hooks";
 import { getProduct, manageCart } from "@redux";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const ProductCard = ({ product }) => {
-  const { _id, name, price, brand, reviews, image_urls } = product;
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleAddToCartClick = (e, productId) => {
+  const { token } = useToken();
+  const { cart } = useCartState();
+
+  const { _id, name, price, brand, reviews, image_urls } = product;
+
+  const [loading, setLoading] = useState(false);
+
+  const handleAddToCartClick = async (e, productId) => {
     e.stopPropagation();
-    dispatch(manageCart(productId));
+    if (!token) {
+      navigate("/profile");
+      return;
+    }
+    setLoading(true);
+    try {
+      await dispatch(manageCart(productId));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleProductClick = (productId) => () => {
     navigate(`/productDetails/${productId}`);
     dispatch(getProduct(productId));
   };
-
-  const { cart } = useCartState();
 
   const isInCart = cart?.some(({ _id: productId }) => productId === _id);
   const image = image_urls[0] || image_urls[1] || image_urls[2];
@@ -49,7 +63,13 @@ const ProductCard = ({ product }) => {
           className=" bg-white rounded-sm w-7 h-7 shadow text-base flex items-center justify-center absolute top-1 right-1 max-md:w-5 max-md:h-5 max-md:text-sm max-md:top-0 max-md:right-0"
           onClick={(e) => handleAddToCartClick(e, _id)}
         >
-          {isInCart ? <MdShoppingCart /> : <MdOutlineShoppingCart />}
+          {loading ? (
+            <AiOutlineLoading3Quarters className="text-sm" />
+          ) : isInCart ? (
+            <MdShoppingCart />
+          ) : (
+            <MdOutlineShoppingCart />
+          )}
         </div>
       </div>
 
