@@ -9,7 +9,7 @@ import FormInput from "../formInput/FormInput";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { error } = useUserState();
+  const { error, status } = useUserState();
 
   const [values, setValues] = useState({
     username: "",
@@ -57,7 +57,9 @@ const Signup = () => {
             />
           ))}
 
-          <Button className="w-full mt-2">REGISTER</Button>
+          <Button className="w-full mt-2">
+            {status === "loading" ? " Registering..." : "REGISTER"}
+          </Button>
         </form>
 
         {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
