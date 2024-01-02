@@ -74,7 +74,7 @@ const CartProductCard = ({
           <span className="pl-1 text-sm">({reviews.count}) </span>
         </div>
 
-        <div className="flex justify-between w-[270px] max-md:w-full max-md:gap-4">
+        <div className="flex justify-between w-[270px] max-md:w-full max-md:gap-4 mt-1">
           <select
             name="size"
             className=" cursor-pointer border my-1 max-md:text-sm"
