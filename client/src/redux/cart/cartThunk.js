@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useToken } from "../../hooks";
+import { useToken } from "@hooks";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const BASE_URL = "http://localhost:4000";
@@ -35,7 +35,6 @@ export const getCartProducts = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
