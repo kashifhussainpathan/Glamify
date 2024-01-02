@@ -2,11 +2,16 @@ import { useState } from "react";
 
 const FormInput = (props) => {
   const [focused, setFocused] = useState(false);
-  const { label, errorMessage, onChange, id, ...inputProps } = props;
+
+  const { label, errorMessage, onChange, id, pattern, value, ...inputProps } =
+    props;
 
   const handleFocus = (e) => {
     setFocused(true);
   };
+
+  const showError =
+    value !== "" && (pattern ? !new RegExp(pattern).test(value) : true);
 
   return (
     <div className="flex flex-col w-80 mb-3 max-md:w-48">
@@ -19,10 +24,10 @@ const FormInput = (props) => {
           inputProps.name === "confirmPassword" && setFocused(true)
         }
         className={`${
-          focused && inputProps.value === "" ? "border-red-500" : ""
+          showError ? "border-red-500" : ""
         } p-2 border border-gray-300 rounded`}
       />
-      {focused && inputProps.value === "" && (
+      {showError && (
         <span className="text-xs text-red-500">{errorMessage}</span>
       )}
     </div>
