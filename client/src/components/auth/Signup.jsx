@@ -48,7 +48,7 @@ const Signup = () => {
           <div className="text-2xl mt-[-10px] mb-1 font-semibold ">
             Register
           </div>
-          {dynamicInputs.map((input) => (
+          {dynamicInputs?.map((input) => (
             <FormInput
               key={input.id}
               {...input}

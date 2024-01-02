@@ -31,7 +31,7 @@ const Signin = () => {
       <div className="bg-white p-6 rounded shadow-small">
         <form onSubmit={handleSubmit} className="flex flex-col items-center">
           <div className="text-2xl mt-[-10px] mb-1 font-semibold ">Sign In</div>
-          {signInInputs.map((input) => (
+          {signInInputs?.map((input) => (
             <FormInput
               key={input.id}
               {...input}
