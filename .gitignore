@@ -1,4 +1,5 @@
 
 config.env
+data.json
 node_modules
 client/node_modules
