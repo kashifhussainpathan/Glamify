@@ -6,8 +6,6 @@ import {
 } from "../utils/helper.js";
 import Product from "../models/product.model.js";
 import buildQuery from "../utils/buildQuery.js";
-import products from "../data.json" assert { type: "json" };
-
 export const getProducts = async (req, res, next) => {
   try {
     const { page = 1, gender } = req.params;
@@ -122,16 +120,3 @@ export const searchedProducts = async (req, res, next) => {
     next(error);
   }
 };
-
-const seedDatabase = async () => {
-  try {
-    await Product.insertMany(products);
-    console.log("Data seeded successfully");
-  } catch (error) {
-    console.error("Error seeding the database:", error);
-  } finally {
-    await mongoose.connection.close();
-  }
-};
-
-export default seedDatabase;
