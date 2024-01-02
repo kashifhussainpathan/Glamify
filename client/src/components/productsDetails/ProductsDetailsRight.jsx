@@ -1,16 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@ui";
 import { manageCart } from "@redux";
-import { useCartState } from "@hooks";
 import { BiCartAlt } from "react-icons/bi";
 import { MdOutlineStar } from "react-icons/md";
+import { useToken, useCartState } from "@hooks";
 import { HiOutlineArrowPath } from "react-icons/hi2";
 
 const ProductsDetailsRight = (props) => {
   const { product } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token } = useToken();
   const { manageCartStatus, cart } = useCartState();
 
   const {
@@ -30,7 +33,11 @@ const ProductsDetailsRight = (props) => {
   const isInCart = cart?.some(({ _id: productId }) => productId === _id);
 
   const handleManageCart = (id) => {
-    dispatch(manageCart(id));
+    if (!token) {
+      navigate("/profile");
+    } else {
+      dispatch(manageCart(id));
+    }
   };
 
   return (
