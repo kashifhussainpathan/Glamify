@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://glamify-backend.vercel.app";
 
 export const signupAsync = createAsyncThunk(
   "user/signup",

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useToken } from "@hooks";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://glamify-backend.vercel.app";
 
 export const manageCart = createAsyncThunk(
   "user/manageCart ",
