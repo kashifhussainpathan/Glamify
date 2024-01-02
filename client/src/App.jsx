@@ -4,8 +4,8 @@ import { Route, Routes } from "react-router-dom";
 
 import { ProductDetails } from "@pages";
 import { getCartProducts } from "@redux";
-import { getMenProducts, getUser, getWomenProducts } from "@redux";
 import { Footer, Navbar, RouteNotFound } from "@components";
+import { getMenProducts, getUser, getWomenProducts } from "@redux";
 import { useToken, useCartState, useUserState, useProductsState } from "@hooks";
 
 const Home = lazy(() => import("./pages/home/Home"));
