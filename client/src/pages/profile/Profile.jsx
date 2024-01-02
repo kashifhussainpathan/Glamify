@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getUser } from "@redux";
-import { useCartState, useUserState, useToken } from "@hooks";
+import { ProfileCardLoader } from "@components";
+import { useUserState, useToken } from "@hooks";
+import { getUser, getCartProducts } from "@redux";
 import { Address, ProfileCard, ToggleSigninSignup } from "@components";
 
 const Profile = () => {
@@ -11,21 +12,20 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const { token } = useToken();
-  const { cart } = useCartState();
-  const { currentUser: user } = useUserState();
+  const { getUserStatus } = useUserState();
 
   useEffect(() => {
-    if (!user) dispatch(getUser({ token }));
-  }, []);
+    if (token) dispatch(getCartProducts(token));
+  }, [token]);
 
-  if (!user) {
+  if (!token) {
     return <ToggleSigninSignup />;
   }
 
   return (
     <div className="container mx-auto my-8 flex justify-center">
       <div className="lg:w-3/4 bg-white p-4 rounded-md shadow-lg">
-        <ProfileCard />
+        {getUserStatus === "loading" ? <ProfileCardLoader /> : <ProfileCard />}
 
         <Address />
 
