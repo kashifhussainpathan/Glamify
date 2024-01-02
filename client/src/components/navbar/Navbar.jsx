@@ -2,27 +2,44 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
+import { getFilters } from "@redux";
 import { useCartState } from "@hooks";
+import memoizeData from "@utils/memoizeData";
+import { filtersConstants } from "@constants";
+import SearchComponent from "./SearchComponent";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { getProducts, removeFilters } from "@redux";
+import { setProducts, setFiltersData } from "@redux";
 import { BiCartAlt, BiHomeAlt2 } from "react-icons/bi";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import { useFiltersState, useUserState, useProductsState } from "@hooks";
+import { useUserState, useProductsState } from "@hooks";
+import { getProducts, removeFilters, setCurrentPage } from "@redux";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { cart } = useCartState();
-  const { filters } = useFiltersState();
   const { currentUser: user } = useUserState();
-  const { currentPage: page } = useProductsState();
+  const { searchedProductsStatus, searchedProducts } = useProductsState();
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
-  const handleGenderClick = (gender) => {
+  const handleGenderClick = async (gender) => {
     navigate(`/products/${gender}`);
+    const filters = filtersConstants;
     dispatch(removeFilters());
-    dispatch(getProducts({ page, gender, filters }));
+    dispatch(setCurrentPage(1));
+
+    const { isCached, cachedData } = memoizeData(1, gender, filters);
+    const { isCached: isFiltersCached, cachedData: cachedFiltersData } =
+      memoizeData("filter", gender, "filters");
+
+    if (isCached || isFiltersCached) {
+      dispatch(setProducts(cachedData));
+      dispatch(setFiltersData(cachedFiltersData));
+    } else {
+      dispatch(getFilters({ gender }));
+      dispatch(getProducts({ page: 1, gender, filters }));
+    }
   };
 
   const toggleNav = () => {
@@ -36,6 +53,11 @@ const Navbar = () => {
           Glamify
         </NavLink>
       </div>
+
+      <SearchComponent
+        products={searchedProducts}
+        status={searchedProductsStatus}
+      />
 
       <div className="flex gap-6 text-[1.3rem] font-medium max-md:text-base max-md:gap-3">
         <div
@@ -68,7 +90,7 @@ const Navbar = () => {
         <NavLink to="/cart" className="text-text-color">
           <div className="relative">
             <BiCartAlt />
-            <span className="absolute top-[-5px] right-[-10px] text-[.8rem]  bg-slate-900 text-slate-100 h-[1.2rem] w-[1.2rem] rounded-full flex justify-center items-center pr-[1px] max-md:h-4 max-md:w-4 max-md:pr-0">
+            <span className="absolute top-[-5px] right-[-10px] text-[12px]  bg-slate-900 text-slate-100 h-[1.2rem] w-[1.2rem] rounded-full flex justify-center items-center  max-md:h-4 max-md:w-4 ">
               {cart.length}
             </span>
           </div>
