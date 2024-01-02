@@ -16,6 +16,7 @@ export const inputs = [
     type: "email",
     placeholder: "Email",
     errorMessage: "Please enter a valid email address!",
+    pattern: "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
     label: "Email",
     required: true,
   },
