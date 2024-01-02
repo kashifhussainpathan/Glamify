@@ -1,8 +1,6 @@
 const Button = (props) => {
   const { children, onClick, className, ...restProps } = props;
 
-  console.log(restProps);
-
   return (
     <button
       onClick={onClick}
