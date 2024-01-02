@@ -1,10 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
-import { CartLoader, CartProductCard, OrderSummary } from "@components";
+import {
+  OrderSummary,
+  CartCardLoader,
+  CartProductCard,
+  OrderSummaryLoader,
+} from "@components";
+import { useCartState } from "@hooks";
 
 const Cart = () => {
-  const { cart, status } = useSelector(({ cart }) => cart);
+  const { cart, getCartProductsStatus } = useCartState();
 
   return (
     <div
@@ -13,8 +18,8 @@ const Cart = () => {
       }`}
     >
       <div className="flex flex-col gap-4">
-        {status === "loading" ? (
-          <CartLoader />
+        {getCartProductsStatus === "loading" ? (
+          <CartCardLoader />
         ) : (
           cart?.map((product) => (
             <CartProductCard {...product} key={product._id} />
@@ -22,11 +27,18 @@ const Cart = () => {
         )}
       </div>
 
-      <div className={`${!cart?.length ? "h-[50vh] max-md:h-auto" : ""}`}>
-        {!cart?.length && (
-          <div className="text-center my-4"> Your cart is Empty. </div>
+      <div>
+        {!cart?.length && getCartProductsStatus !== "loading" && (
+          <div className="text-center my-6">
+            <p>Your shopping cart is currently empty.</p>
+          </div>
         )}
-        {status !== "loading" && <OrderSummary cart={cart} />}
+
+        {getCartProductsStatus === "loading" ? (
+          <OrderSummaryLoader />
+        ) : (
+          <OrderSummary cart={cart} />
+        )}
       </div>
     </div>
   );
