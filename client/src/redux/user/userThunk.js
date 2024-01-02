@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useToken } from "../../hooks";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const BASE_URL = "http://localhost:4000";
@@ -12,6 +11,7 @@ export const signupAsync = createAsyncThunk(
         `${BASE_URL}/api/auth/signup`,
         userDetails
       );
+
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -27,6 +27,7 @@ export const signinAsync = createAsyncThunk(
         `${BASE_URL}/api/auth/signin`,
         userDetails
       );
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

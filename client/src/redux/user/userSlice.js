@@ -9,6 +9,8 @@ import {
 const initialState = {
   error: null,
   status: "idle",
+  getUserStatus: "idle",
+  updateUserDetailsStatus: "idle",
   currentUser: null,
 };
 
@@ -39,6 +41,7 @@ const userSlice = createSlice({
     builder.addCase(signinAsync.fulfilled, (state, action) => {
       const user = action.payload.user;
       const token = action.payload.token;
+
       state.error = "";
       state.status = "success";
       state.currentUser = user;
@@ -52,32 +55,32 @@ const userSlice = createSlice({
     });
 
     builder.addCase(getUser.pending, (state) => {
-      state.status = "loading";
+      state.getUserStatus = "loading";
     });
 
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.getUserStatus = "success";
       state.currentUser = action.payload;
     });
 
     builder.addCase(getUser.rejected, (state, action) => {
-      state.status = "error";
+      state.getUserStatus = "error";
       localStorage.removeItem("token");
     });
 
     builder.addCase(updateUserDetails.pending, (state) => {
-      state.status = "loading";
+      state.updateUserDetailsStatus = "loading";
     });
 
     builder.addCase(updateUserDetails.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.updateUserDetailsStatus = "success";
       state.currentUser = action.payload;
     });
 
     builder.addCase(updateUserDetails.rejected, (state, action) => {
-      state.status = "error";
+      state.updateUserDetailsStatus = "error";
       alert(action.payload.message);
     });
   },
