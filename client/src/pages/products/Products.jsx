@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import { setProducts } from "@redux";
 import { Button } from "@components/@ui";
 import memoizeData from "@utils/memoizeData";
-import { filtersConstants } from "@constants";
 import { useGetGenderFromPath } from "@hooks";
+import { filtersConstants } from "@constants";
 import { LiaFilterSolid } from "react-icons/lia";
 import { useFiltersState, useProductsState } from "@hooks";
 import { Filters, Pagination, ProductCard, ProductLoader } from "@components";
@@ -31,10 +31,6 @@ const Products = () => {
       dispatch(getProducts({ page, gender: genderToGetProducts, filters }));
     }
   }, []);
-
-  // useEffect(() => {
-  //   dispatch(getFilters({ gender }));
-  // }, [gender]);
 
   const handleApplyFiltersClick = () => {
     dispatch(setCurrentPage(1));
