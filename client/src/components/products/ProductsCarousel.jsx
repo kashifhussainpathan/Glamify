@@ -45,7 +45,9 @@ const ProductsCarousel = ({ products, status }) => {
       removeArrowOnDeviceType={["mobile"]}
     >
       {status === "loading"
-        ? Array.from({ length: 6 }).map((_, i) => <ProductLoader key={i} />)
+        ? Array.from({ length: 30 })
+            .fill()
+            .map((_, i) => <ProductLoader key={i} />)
         : products?.map((product) => {
             return <ProductCard key={product._id} product={product} />;
           })}
