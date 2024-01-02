@@ -1,33 +1,27 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { Skeleton } from "@ui";
 
 const ProductLoader = () => {
   return (
-    <div className="w-[210px] p-2 border border-white hover:border hover:border-zinc-300 cursor-pointer">
-      <div className="relative h-auto overflow-hidden">
-        <Skeleton height={220} width={190} />
+    <div className="w-[210px] p-2 shadow-small rounded-sm cursor-pointer my-1 max-md:w-[150px] ">
+      <Skeleton classes="md:h-[250px] w-full max-md:w-[120px] max-md:mx-auto max-md:h-[150px]" />
+
+      <div className=" px-2 max-md:px-[2px]">
+        <Skeleton classes="my-2 h-4 w-[160px] max-md:w-[120px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px]" />
+
+        <Skeleton classes=" my-1 h-4 w-[140px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px] max-md:w-[100px]" />
       </div>
 
-      <div>
-        <div className=" mt-2 text-sm font-semibold w-[180px] overflow-hidden overflow-ellipsis whitespace-nowrap">
-          <Skeleton count={1} width={150} />
-        </div>
-        <div className=" my-1 text-sm font-normal w-[180px] overflow-hidden overflow-ellipsis whitespace-nowrap">
-          <Skeleton count={1} width={190} />
-        </div>
-      </div>
+      <div className=" px-2 mt-1 max-md:px-[2px]">
+        <div className="flex items-center gap-1 mt-2">
+          <Skeleton classes="h-4 w-4 max-md:h-3 max:md:w-1" />
+          <Skeleton classes="h-4 w-4 max-md:h-3 max:md:w-1" />
+          <Skeleton classes="h-4 w-4 max-md:h-3 max:md:w-1" />
+          <Skeleton classes="h-4 w-4 max-md:h-3 max:md:w-1" />
 
-      <div>
-        <div className="flex items-center gap-2">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton count={1} width={10} key={i} />
-          ))}{" "}
-          <Skeleton count={1} width={25} />
+          <Skeleton classes="h-4 w-8 max-md:h-3 max-md:w-6" />
         </div>
-        <div className="font-semibold text-lg">
-          <Skeleton count={1} width={70} height={20} />
-        </div>
+        <Skeleton classes="h-6 w-12 mt-2 max-md:h-4" />
       </div>
     </div>
   );
