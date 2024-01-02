@@ -33,7 +33,7 @@ const Navbar = () => {
     const { isCached: isFiltersCached, cachedData: cachedFiltersData } =
       memoizeData("filter", gender, "filters");
 
-    if (isCached || isFiltersCached) {
+    if (isCached && isFiltersCached) {
       dispatch(setProducts(cachedData));
       dispatch(setFiltersData(cachedFiltersData));
     } else {
