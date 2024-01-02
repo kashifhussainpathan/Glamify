@@ -1,17 +1,22 @@
 import {
+  removeFilters,
+  setFilters,
+  setFiltersData,
+} from "./filters/filtersSlice";
+import {
   getProducts,
   getMenProducts,
   getWomenProducts,
   getSimilarProducts,
+  searchProductsAsync,
 } from "./products/productsThunk";
 import { signinAsync } from "./user/userThunk";
-import { updateUserDetails } from "./user/userThunk";
 import { getFilters } from "./filters/filtersThunk";
+import { updateUserDetails } from "./user/userThunk";
 import { getProduct } from "./products/productsThunk";
 import { getUser, signupAsync } from "./user/userThunk";
-import { setCurrentPage } from "./products/productsSlice";
 import { getCartProducts, manageCart } from "./cart/cartThunk";
-import { removeFilters, setFilters } from "./filters/filtersSlice";
+import { setCurrentPage, setProducts } from "./products/productsSlice";
 
 export {
   getUser,
@@ -20,13 +25,16 @@ export {
   getFilters,
   manageCart,
   getProducts,
+  setProducts,
   signupAsync,
   signinAsync,
   removeFilters,
+  setFiltersData,
   getMenProducts,
   setCurrentPage,
   getCartProducts,
   getWomenProducts,
   updateUserDetails,
   getSimilarProducts,
+  searchProductsAsync,
 };

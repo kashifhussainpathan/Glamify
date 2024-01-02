@@ -1,3 +1,4 @@
 import Button from "./Button";
+import Skeleton from "./Skeleton";
 
-export { Button };
+export { Button, Skeleton };
