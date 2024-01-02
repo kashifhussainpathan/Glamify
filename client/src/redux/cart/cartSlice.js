@@ -3,7 +3,8 @@ import { getCartProducts, manageCart } from "./cartThunk";
 
 const initialState = {
   error: null,
-  status: "idle",
+  manageCartStatus: "idle",
+  getCartProductsStatus: "idle",
   cart: [],
 };
 
@@ -14,33 +15,32 @@ const cartSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(manageCart.pending, (state) => {
-      state.status = "loading";
+      state.manageCartStatus = "loading";
     });
 
     builder.addCase(manageCart.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.manageCartStatus = "success";
       state.cart = action.payload;
     });
 
     builder.addCase(manageCart.rejected, (state, action) => {
-      state.status = "error";
+      state.manageCartStatus = "error";
       state.error = action.payload;
     });
 
     builder.addCase(getCartProducts.pending, (state) => {
-      state.status = "loading";
+      state.getCartProductsStatus = "loading";
     });
 
     builder.addCase(getCartProducts.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.getCartProductsStatus = "success";
       state.cart = action.payload;
     });
 
     builder.addCase(getCartProducts.rejected, (state, action) => {
-      state.status = "error";
-      console.log(action.payload);
+      state.getCartProductsStatus = "error";
     });
   },
 });

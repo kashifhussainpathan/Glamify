@@ -5,18 +5,25 @@ import {
   getProducts,
   getSimilarProducts,
   getWomenProducts,
+  searchProductsAsync,
 } from "./productsThunk";
 
 const initialState = {
   error: "",
   product: {},
   products: [],
-  status: "idle",
   totalProducts: "",
   menProducts: [],
   womenProducts: [],
   currentPage: 1,
   similarProducts: [],
+  searchedProducts: [],
+  productStatus: "idle",
+  productsStatus: "idle",
+  menProductsStatus: "idle",
+  womenProductsStatus: "idle",
+  similarProductsStatus: "idle",
+  searchedProductsStatus: "idle",
 };
 
 const productsSlice = createSlice({
@@ -26,87 +33,105 @@ const productsSlice = createSlice({
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload;
     },
+    setProducts: (state, action) => {
+      state.products = action.payload.data;
+      state.totalProducts = action.payload?.pageInfo?.totalItems;
+    },
   },
 
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
-      state.status = "loading";
+      state.productsStatus = "loading";
     });
 
     builder.addCase(getProducts.fulfilled, (state, action) => {
       state.products = action.payload.data;
       state.totalProducts = action.payload?.pageInfo?.totalItems;
       state.error = "";
-      state.status = "success";
+      state.productsStatus = "success";
     });
 
     builder.addCase(getProducts.rejected, (state, action) => {
-      state.status = "error";
+      state.productsStatus = "error";
       state.error = action.payload;
     });
 
     builder.addCase(getMenProducts.pending, (state) => {
-      state.status = "loading";
+      state.menProductsStatus = "loading";
     });
 
     builder.addCase(getMenProducts.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.menProductsStatus = "success";
       state.menProducts = action.payload.data;
     });
 
     builder.addCase(getMenProducts.rejected, (state, action) => {
-      state.status = "error";
+      state.menProductsStatus = "error";
       state.error = action.payload;
     });
 
     builder.addCase(getWomenProducts.pending, (state) => {
-      state.status = "loading";
+      state.womenProductsStatus = "loading";
     });
 
     builder.addCase(getWomenProducts.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.womenProductsStatus = "success";
       state.womenProducts = action.payload.data;
     });
 
     builder.addCase(getWomenProducts.rejected, (state, action) => {
-      state.status = "error";
+      state.womenProductsStatus = "error";
       state.error = action.payload;
     });
 
     builder.addCase(getProduct.pending, (state) => {
-      state.status = "loading";
+      state.productStatus = "loading";
     });
 
     builder.addCase(getProduct.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.productStatus = "success";
       state.product = action.payload;
     });
 
     builder.addCase(getProduct.rejected, (state, action) => {
-      state.status = "error";
+      state.productStatus = "error";
       state.error = action.payload;
     });
 
     builder.addCase(getSimilarProducts.pending, (state) => {
-      state.status = "loading";
+      state.similarProductsStatus = "loading";
     });
 
     builder.addCase(getSimilarProducts.fulfilled, (state, action) => {
       state.error = "";
-      state.status = "success";
+      state.similarProductsStatus = "success";
       state.similarProducts = action.payload?.data?.products;
     });
 
     builder.addCase(getSimilarProducts.rejected, (state, action) => {
-      state.status = "error";
-      state.error = action.payload;
+      state.similarProductsStatus = "error";
+    });
+
+    builder.addCase(searchProductsAsync.pending, (state) => {
+      state.searchedProductsStatus = "loading";
+    });
+
+    builder.addCase(searchProductsAsync.fulfilled, (state, action) => {
+      state.error = "";
+      state.searchedProductsStatus = "success";
+      state.searchedProducts = action.payload;
+    });
+
+    builder.addCase(searchProductsAsync.rejected, (state, action) => {
+      state.searchedProductsStatus = "error";
+      state.error = action.payload.message;
     });
   },
 });
 
 export default productsSlice.reducer;
 
-export const { setCurrentPage } = productsSlice.actions;
+export const { setProducts, setCurrentPage } = productsSlice.actions;

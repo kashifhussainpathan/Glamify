@@ -65,8 +65,7 @@ const filtersSlice = createSlice({
 
       // Toggle size filter
       if (rating) {
-        state.filters.rating = rating;
-      } else {
+        console.log({ rating });
         state.filters.rating = rating;
       }
 
@@ -88,6 +87,12 @@ const filtersSlice = createSlice({
         categories: [],
         priceRange: { min: 0, max: 0 },
       };
+    },
+
+    setFiltersData: (state, action) => {
+      state.colors = action.payload.colors;
+      state.brands = action.payload.brands;
+      state.categories = action.payload.categories;
     },
   },
 
@@ -113,4 +118,5 @@ const filtersSlice = createSlice({
 
 export default filtersSlice.reducer;
 
-export const { setFilters, removeFilters } = filtersSlice.actions;
+export const { setFilters, removeFilters, setFiltersData } =
+  filtersSlice.actions;
