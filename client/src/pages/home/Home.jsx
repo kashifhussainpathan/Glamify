@@ -1,25 +1,30 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
+import { useProductsState } from "@hooks";
+import { Categories } from "@components/home";
 import { HomeHeading, HomeSlider, ProductsCarousel } from "@components";
 
 const Home = () => {
-  const { status, menProducts, womenProducts } = useSelector(
-    ({ products }) => products
-  );
+  const { menProducts, womenProducts } = useProductsState();
+  const { menProductsStatus, womenProductsStatus } = useProductsState();
 
   return (
     <div className="mb-10">
       <HomeSlider />
 
+      <Categories />
+
       <HomeHeading>MEN'S APPAREL SECTION</HomeHeading>
       <div className="w-full ">
-        <ProductsCarousel products={menProducts} status={status} />
+        <ProductsCarousel products={menProducts} status={menProductsStatus} />
       </div>
 
       <HomeHeading>WOMEN'S FASHION PICKS</HomeHeading>
       <div className="w-full ">
-        <ProductsCarousel products={womenProducts} status={status} />
+        <ProductsCarousel
+          products={womenProducts}
+          status={womenProductsStatus}
+        />
       </div>
     </div>
   );
