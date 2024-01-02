@@ -1,4 +1,4 @@
-import sliderImage1 from "./homeSliderImgs/sliderImage1.jpg";
+import sliderImage1 from "./homeSliderImgs/SliderImage1.jpg";
 import sliderImage2 from "./homeSliderImgs/SliderImage2.gif";
 import sliderImage3 from "./homeSliderImgs/SliderImage3.jpg";
 import sliderImage4 from "./homeSliderImgs/SliderImage4.gif";
