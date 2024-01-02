@@ -102,6 +102,27 @@ export const getFilters = async (req, res, next) => {
   }
 };
 
+export const searchedProducts = async (req, res, next) => {
+  try {
+    const { searchValue } = req.query;
+
+    const regex = new RegExp(searchValue, "i");
+
+    if (searchValue.trim() === "") {
+      res.status(200).json([]);
+      return;
+    }
+
+    const products = await Product.find({
+      product_type: { $regex: regex },
+    });
+
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const seedDatabase = async () => {
   try {
     await Product.insertMany(products);
