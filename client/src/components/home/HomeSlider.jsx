@@ -14,23 +14,21 @@ const HomeSlider = () => {
     sliderImage4,
     sliderImage5,
   ];
-  const [prevSlide, setPrevSlide] = useState(0);
+
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPrevSlide(currentSlide);
       setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 4000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, [currentSlide, slides.length]);
 
   return (
-    //w-90 sm:w-90 md:w-90 lg:w-8
     <div className="max-md:w-full mx-auto mt-4 overflow-hidden relative">
       <div
-        className="flex transition-transform duration-500 ease-in-out"
+        className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {slides.map((slide, index) => (
@@ -45,7 +43,7 @@ const HomeSlider = () => {
       </div>
 
       <div className="flex justify-center mt-2 absolute z-10 bottom-2 left-[50%] transform translate-x-[-50%] max-md:hidden">
-        {slides.map((_, index) => (
+        {slides?.map((_, index) => (
           <div
             key={index}
             className={`${
