@@ -2,20 +2,26 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import { useFiltersState } from "@hooks";
-import { getProducts, setCurrentPage } from "@redux";
+import memoizeData from "@utils/memoizeData";
 import { useProductsState, useGetGenderFromPath } from "@hooks";
+import { setProducts, getProducts, setCurrentPage } from "@redux";
 
 const Pagination = () => {
   const dispatch = useDispatch();
   const { filters } = useFiltersState();
-  const { gender: genderFromPath } = useGetGenderFromPath();
+  const { gender } = useGetGenderFromPath();
   const { totalProducts, currentPage } = useProductsState();
 
   const totalPages = Math.ceil(parseInt(totalProducts) / 20) || 20;
 
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
-    dispatch(getProducts({ page, gender: genderFromPath, filters }));
+    const { isCached, cachedData } = memoizeData(page, gender, filters);
+    if (isCached) {
+      dispatch(setProducts(cachedData));
+    } else {
+      dispatch(getProducts({ page, gender, filters }));
+    }
   };
 
   const getPageNumbers = () => {
