@@ -10,19 +10,11 @@ export default defineConfig({
       "@hooks": "/src/hooks",
       "@redux": "/src/redux",
       "@pages": "/src/pages",
+      "@utils": "/src/utils",
       "@assets": "/src/assets",
+      "@ui": "/src/components/@ui",
       "@constants": "/src/constants",
       "@components": "/src/components",
     },
   },
-
-  // server: {
-  //   proxy: {
-  //     "/api": {
-  //       target: "http://localhost:4000",
-  //       changeOrigin: true,
-  //       secure: false,
-  //     },
-  //   },
-  // },
 });
