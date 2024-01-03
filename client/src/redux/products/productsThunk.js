@@ -2,7 +2,8 @@ import axios from "axios";
 import memoizeData from "@utils/memoizeData";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "https://glamify-backend.vercel.app";
+// const BASE_URL = "https://glamify-backend.vercel.app";
+const BASE_URL = "http://localhost:4000";
 
 export const searchProductsAsync = createAsyncThunk(
   "products/searchProductsAsync",

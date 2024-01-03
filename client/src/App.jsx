@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { Toaster } from "react-hot-toast";
+
 import { ProductDetails } from "@pages";
 import { getCartProducts } from "@redux";
 import { Footer, Navbar, RouteNotFound } from "@components";
@@ -30,6 +32,7 @@ function App() {
 
   return (
     <div className="text-gray-800">
+      <Toaster position="bottom-center" reverseOrder={false} />
       <Navbar />
 
       <div className=" px-[5rem] max-md:px-[1rem]">
