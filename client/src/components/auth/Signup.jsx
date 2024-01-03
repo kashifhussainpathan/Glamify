@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { inputs } from "@constants";
 import { useUserState } from "@hooks";
@@ -9,7 +9,7 @@ import FormInput from "../formInput/FormInput";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { error, status } = useUserState();
+  const { error, signupStatus } = useUserState();
 
   const [values, setValues] = useState({
     username: "",
@@ -57,12 +57,16 @@ const Signup = () => {
             />
           ))}
 
-          <Button className="w-full mt-2">
-            {status === "loading" ? " Registering..." : "REGISTER"}
+          <Button className="w-full mt-2 max-md:w-full">
+            {signupStatus === "loading" ? " Registering..." : "REGISTER"}
           </Button>
         </form>
 
-        {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
+        {error && (
+          <p className="mt-4 text-red-500 text-center w-[300px] max-md:w-[200px]">
+            {error}
+          </p>
+        )}
       </div>
     </div>
   );
