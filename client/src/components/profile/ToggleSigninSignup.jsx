@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { useUserState } from "@hooks";
+import { setToggleAuth } from "@redux";
 import { Signin, Signup } from "@components";
 
 const ToggleSigninSignup = () => {
-  const [toggleAuth, setToggleAuth] = useState(false);
+  const dispatch = useDispatch();
+  const { toggleAuth } = useUserState();
 
   const toggleAuthType = () => {
-    setToggleAuth((prevToggleAuth) => !prevToggleAuth);
+    dispatch(setToggleAuth(!toggleAuth));
   };
 
   return (

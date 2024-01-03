@@ -11,6 +11,7 @@ import {
   searchProductsAsync,
 } from "./products/productsThunk";
 import { signinAsync } from "./user/userThunk";
+import { setToggleAuth } from "./user/userSlice";
 import { getFilters } from "./filters/filtersThunk";
 import { updateUserDetails } from "./user/userThunk";
 import { getProduct } from "./products/productsThunk";
@@ -29,6 +30,7 @@ export {
   signupAsync,
   signinAsync,
   removeFilters,
+  setToggleAuth,
   setFiltersData,
   getMenProducts,
   setCurrentPage,
