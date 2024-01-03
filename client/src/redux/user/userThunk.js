@@ -1,7 +1,9 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const BASE_URL = "https://glamify-backend.vercel.app";
+// const BASE_URL = "http://localhost:4000";
 
 export const signupAsync = createAsyncThunk(
   "user/signup",
@@ -12,7 +14,9 @@ export const signupAsync = createAsyncThunk(
         userDetails
       );
 
-      return response;
+      toast.success("Registration successful! Welcome to Glamify!");
+
+      return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
     }

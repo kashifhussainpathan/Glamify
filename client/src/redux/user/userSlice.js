@@ -8,34 +8,41 @@ import {
 
 const initialState = {
   error: null,
-  status: "idle",
+  signupStatus: "idle",
+  signinStatus: "idle",
   getUserStatus: "idle",
   updateUserDetailsStatus: "idle",
   currentUser: null,
+  toggleAuth: false,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setToggleAuth: (state, action) => {
+      state.toggleAuth = action.payload;
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(signupAsync.pending, (state) => {
-      state.status = "loading";
+      state.signupStatus = "loading";
     });
 
     builder.addCase(signupAsync.fulfilled, (state, action) => {
-      state.status = "success";
+      state.signupStatus = "success";
       state.error = "";
+      state.toggleAuth = !state.toggleAuth;
     });
 
     builder.addCase(signupAsync.rejected, (state, action) => {
-      state.status = "error";
+      state.signupStatus = "error";
       state.error = action.payload.message;
     });
 
     builder.addCase(signinAsync.pending, (state) => {
-      state.status = "loading";
+      state.signinStatus = "loading";
     });
 
     builder.addCase(signinAsync.fulfilled, (state, action) => {
@@ -43,14 +50,14 @@ const userSlice = createSlice({
       const token = action.payload.token;
 
       state.error = "";
-      state.status = "success";
+      state.signinStatus = "success";
       state.currentUser = user;
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("token", token);
     });
 
     builder.addCase(signinAsync.rejected, (state, action) => {
-      state.status = "error";
+      state.signinStatus = "error";
       state.error = action.payload.message;
     });
 
@@ -87,3 +94,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
+
+export const { setToggleAuth } = userSlice.actions;
