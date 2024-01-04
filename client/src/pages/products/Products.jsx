@@ -71,7 +71,7 @@ const Products = () => {
       </div>
 
       <div
-        className="hidden max-md:block max-md:fixed max-md:bottom-6 max-md:right-4 max-md:z-50 max-md:text-lg max-md:font-semibold max-md:bg-slate-50 max-md:shadow max-md:p-2 max-lg:rounded"
+        className="hidden max-md:block max-md:fixed max-md:bottom-6 max-md:right-4 max-md:z-50 max-md:text-2xl max-md:font-semibold max-md:bg-slate-50 max-md:shadow max-md:p-2 max-lg:rounded"
         onClick={HandleToggleFilters}
       >
         <LiaFilterSolid />
