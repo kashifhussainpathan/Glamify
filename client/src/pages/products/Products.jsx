@@ -67,6 +67,10 @@ const Products = () => {
           !toggleFilters ? "max-md:left-[-300px]" : "max-md:left-0"
         }`}
       >
+        <div className="hidden max:md:flex max-md:justify-start max-md:mt-4 max-md:block">
+          <Button onClick={handleApplyFiltersClick}>Apply Filters</Button>
+          <Button onClick={handleRemoveFiltersClick}>Remove Filters</Button>
+        </div>
         <Filters />
       </div>
 
@@ -78,7 +82,7 @@ const Products = () => {
       </div>
 
       <div className="w-[100%] mx-auto">
-        <div className="flex justify-end mt-4 gap-2">
+        <div className="flex justify-end mt-4 gap-2 max-md:hidden">
           <Button onClick={handleApplyFiltersClick}>Apply Filters</Button>
           <Button onClick={handleRemoveFiltersClick}>Remove Filters</Button>
         </div>
