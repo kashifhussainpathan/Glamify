@@ -2,7 +2,8 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 
-const BASE_URL = "https://glamify-backend.vercel.app";
+// const BASE_URL = "https://glamify-backend.vercel.app";
+const BASE_URL = "http://localhost:4000";
 
 export const signupAsync = createAsyncThunk(
   "user/signup",
@@ -49,7 +50,7 @@ export const getUser = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -60,6 +61,27 @@ export const updateUserDetails = createAsyncThunk(
     try {
       const response = await axios.post(
         `${BASE_URL}/api/user/updateProfile`,
+        { updatedDetails },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateAvatar = createAsyncThunk(
+  "user/updateAvatar",
+  async ({ token, updatedDetails }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/user/avatar`,
         { updatedDetails },
         {
           headers: {
