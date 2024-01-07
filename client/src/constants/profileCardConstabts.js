@@ -17,5 +17,6 @@ export const email = {
   placeholder: "Email",
   errorMessage: "Please enter a valid email address!",
   label: "Email",
+  pattern: "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$",
   required: true,
 };
