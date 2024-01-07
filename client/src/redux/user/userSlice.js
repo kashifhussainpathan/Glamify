@@ -3,6 +3,7 @@ import {
   getUser,
   signinAsync,
   signupAsync,
+  updateAvatar,
   updateUserDetails,
 } from "./userThunk";
 
@@ -12,6 +13,7 @@ const initialState = {
   signinStatus: "idle",
   getUserStatus: "idle",
   updateUserDetailsStatus: "idle",
+  updateAvatarStatus: "idle",
   currentUser: null,
   toggleAuth: false,
 };
@@ -58,7 +60,7 @@ const userSlice = createSlice({
 
     builder.addCase(signinAsync.rejected, (state, action) => {
       state.signinStatus = "error";
-      state.error = action.payload.message;
+      state.error = action.payload?.message;
     });
 
     builder.addCase(getUser.pending, (state) => {
@@ -89,6 +91,20 @@ const userSlice = createSlice({
     builder.addCase(updateUserDetails.rejected, (state, action) => {
       state.updateUserDetailsStatus = "error";
       alert(action.payload.message);
+    });
+
+    builder.addCase(updateAvatar.pending, (state) => {
+      state.updateAvatarStatus = "loading";
+    });
+
+    builder.addCase(updateAvatar.fulfilled, (state, action) => {
+      state.error = "";
+      state.updateAvatarStatus = "success";
+      state.currentUser = action.payload;
+    });
+
+    builder.addCase(updateAvatar.rejected, (state, action) => {
+      state.updateAvatarStatus = "error";
     });
   },
 });

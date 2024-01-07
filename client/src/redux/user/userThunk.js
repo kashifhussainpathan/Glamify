@@ -77,11 +77,14 @@ export const updateUserDetails = createAsyncThunk(
 
 export const updateAvatar = createAsyncThunk(
   "user/updateAvatar",
-  async ({ token, updatedDetails }, { rejectWithValue }) => {
+  async ({ avatar, token }, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
+      const formData = new FormData();
+      formData.append("avatar", avatar);
+
+      const response = await axios.patch(
         `${BASE_URL}/api/user/avatar`,
-        { updatedDetails },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
