@@ -44,7 +44,6 @@ const ProfileCard = () => {
       await dispatch(updateUserDetails({ token, updatedDetails }));
       await dispatch(updateAvatar({ avatar, token }));
     } else if (updatedDetails === user && avatar) {
-      console.log("here");
       await dispatch(updateAvatar({ avatar, token }));
     } else if (updatedDetails !== user && !avatar) {
       await dispatch(updateUserDetails({ token, updatedDetails }));
