@@ -1,22 +1,32 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import { Button, Skeleton } from "../@ui";
-import { updateUserDetails } from "@redux";
 import { email, username } from "@constants";
-import { useUserState, useToken } from "@hooks";
 import FormInput from "../formInput/FormInput";
+import { useUserState, useToken } from "@hooks";
+import { updateUserDetails, updateAvatar } from "@redux";
 
-import { FaEdit, FaSave } from "react-icons/fa";
+import { FaEdit, FaSave, FaCamera } from "react-icons/fa";
 
 const ProfileCard = () => {
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
 
   const { token } = useToken();
-  const { updateUserDetailsStatus, currentUser: user } = useUserState();
+  const {
+    updateUserDetailsStatus,
+    currentUser: user,
+    updateAvatarStatus,
+  } = useUserState();
 
+  const [avatar, setAvatar] = useState();
+  const [avatarPreview, setAvatarPreview] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [updatedDetails, setUpdatedDetails] = useState({});
+  const [updatedDetails, setUpdatedDetails] = useState({
+    username: user?.username,
+    email: user?.email,
+  });
 
   const handleUserDetailsChange = (e) => {
     const { name, value } = e.target;
@@ -28,16 +38,43 @@ const ProfileCard = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
-    if (updatedDetails !== user) {
-      dispatch(updateUserDetails({ token, updatedDetails }));
-    }
+  const handleSaveClick = async () => {
     setIsEditing(false);
+    if (updatedDetails !== user && avatar) {
+      await dispatch(updateUserDetails({ token, updatedDetails }));
+      await dispatch(updateAvatar({ avatar, token }));
+    } else if (updatedDetails === user && avatar) {
+      console.log("here");
+      await dispatch(updateAvatar({ avatar, token }));
+    } else if (updatedDetails !== user && !avatar) {
+      await dispatch(updateUserDetails({ token, updatedDetails }));
+    }
+
+    setAvatar("");
+    setAvatarPreview("");
   };
 
   const handleLogoutClick = () => {
     localStorage.removeItem("token");
     window.location.reload();
+  };
+
+  const handleCameraIconClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      setAvatar(selectedFile);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
 
   return (
@@ -50,11 +87,34 @@ const ProfileCard = () => {
             className="w-full h-full object-cover rounded"
           />
         </div>
-        <img
-          src={user?.avatar}
-          alt="User Avatar"
-          className="w-[150px] h-[150px] rounded-full mt-[-70px] mx-auto max-md:h-[70px] max-md:w-[70px] max-md:mt-[-35px]"
-        />
+        <div className="mx-auto relative w-[150px]">
+          {updateAvatarStatus === "loading" ? (
+            <Skeleton
+              classes={`w-[150px] h-[150px] rounded-full mt-[-70px] mx-auto max-md:h-[70px] max-md:w-[70px] max-md:mt-[-35px]`}
+            />
+          ) : (
+            <img
+              src={avatar ? avatarPreview : user?.avatar}
+              alt="User avatar"
+              className="w-[150px] h-[150px] rounded-full mt-[-70px] mx-auto max-md:h-[70px] max-md:w-[70px] max-md:mt-[-35px] object-cover"
+            />
+          )}
+
+          {isEditing && (
+            <div className="absolute bottom-2 right-2 p-2 rounded-full bg-white shadow border max-md:p-1 max-md:right-9 cursor-pointer">
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <FaCamera
+                onClick={handleCameraIconClick}
+                className="max-md:text-[10px]"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex flex-col gap-1 items-center justify-center mt-3">
@@ -84,13 +144,13 @@ const ProfileCard = () => {
             />
           </div>
         ) : (
-          <p className="text-gray-500">
+          <div className="text-gray-500">
             {updateUserDetailsStatus === "loading" ? (
               <Skeleton classes="h-4 w-32" />
             ) : (
               user?.email
             )}
-          </p>
+          </div>
         )}
       </div>
 
