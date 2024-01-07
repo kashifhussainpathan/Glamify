@@ -4,9 +4,9 @@ import { config } from "dotenv";
 config({ path: "./config.env" });
 
 cloudinary.config({
-  cloud_name: "traderkp",
-  api_key: "224372198776264",
-  api_secret: "vq1i7Zx401uEXL1WkD_bS01bqDs",
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const uploadOnCloudinary = async (localFilePath) => {
