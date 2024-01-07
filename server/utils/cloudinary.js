@@ -13,9 +13,16 @@ const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
 
-    const response = await cloudinary.uploader.upload(localFilePath, {
+    const uploadOptions = {
       resource_type: "auto",
-    });
+      upload_preset: "glamify",
+      folder: "Glamify",
+    };
+
+    const response = await cloudinary.uploader.upload(
+      localFilePath,
+      uploadOptions
+    );
 
     fs.unlinkSync(localFilePath);
     return response;
