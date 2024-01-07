@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", //https://glamify-kp.vercel.app
+    origin: "https://glamify-kp.vercel.app",
     credentials: true,
   })
 );
