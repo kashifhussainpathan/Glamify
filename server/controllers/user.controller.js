@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import Product from "../models/product.model.js";
 import { errorHandler } from "../utils/error.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 export const getUser = async (req, res) => {
   const userId = req.userId;
@@ -70,4 +71,38 @@ export const updateProfile = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const updateUserAvatar = async (req, res, next) => {
+  try {
+    const avatarLocalPath = req.file?.path;
+
+    if (!avatarLocalPath) {
+      return next(errorHandler(400, "Avatar file is missing"));
+    }
+
+    //TODO: delete old image - assignment
+
+    const avatar = await uploadOnCloudinary(avatarLocalPath);
+
+    console.log({ avatar });
+
+    if (!avatar.url) {
+      return next(errorHandler(400, "Error while uploading on avatar"));
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      {
+        $set: {
+          avatar: avatar.url,
+        },
+      },
+      { new: true }
+    ).select("-password");
+
+    console.log(user);
+
+    return res.status(200).json(user);
+  } catch (error) {}
 };
