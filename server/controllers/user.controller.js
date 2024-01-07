@@ -81,11 +81,7 @@ export const updateUserAvatar = async (req, res, next) => {
       return next(errorHandler(400, "Avatar file is missing"));
     }
 
-    //TODO: delete old image - assignment
-
     const avatar = await uploadOnCloudinary(avatarLocalPath);
-
-    console.log({ avatar });
 
     if (!avatar.url) {
       return next(errorHandler(400, "Error while uploading on avatar"));
@@ -101,8 +97,8 @@ export const updateUserAvatar = async (req, res, next) => {
       { new: true }
     ).select("-password");
 
-    console.log(user);
-
     return res.status(200).json(user);
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
