@@ -7,7 +7,7 @@ import { errorHandler } from "../utils/error.js";
 dotenv.config({ path: "./config.env" });
 
 export const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, avatar } = req.body;
 
   try {
     const isEmailExist = await User.findOne({ email });
@@ -33,7 +33,12 @@ export const signup = async (req, res, next) => {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(password, salt);
 
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({
+      username,
+      avatar,
+      email,
+      password: hashedPassword,
+    });
 
     await newUser.save();
     res.status(201).json("User created successfully!");
