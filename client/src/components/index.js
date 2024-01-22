@@ -20,6 +20,7 @@ import OrderSummaryLoader from "./cart/OrderSummaryLoader";
 import ProductsCarousel from "./products/ProductsCarousel";
 import ToggleSigninSignup from "./profile/ToggleSigninSignup";
 import ProfileCardLoader from "./profile/components/ProfileCardLoader";
+import ScrollToTop from "./ScrollToTop";
 
 export {
   Signup,
@@ -33,6 +34,7 @@ export {
   HomeSlider,
   HomeHeading,
   ProductCard,
+  ScrollToTop,
   ProfileCard,
   OrderSummary,
   ErrorFallback,
