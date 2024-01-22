@@ -7,9 +7,9 @@ import {
   ProductDetailsLoader,
 } from "@components/productsDetails";
 import { HomeHeading } from "@components/home";
-import { ProductsCarousel } from "@components";
 import { getProduct, getSimilarProducts } from "@redux";
 import { useCheckEmptyObject, useProductsState } from "@hooks";
+import { ProductsCarousel, SuspenseFallback } from "@components";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const ProductDetails = () => {
   }, [product]);
 
   if (useCheckEmptyObject(product)) {
-    return <div>No Product Found</div>;
+    return <SuspenseFallback />;
   }
 
   return (
