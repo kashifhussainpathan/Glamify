@@ -6,8 +6,8 @@ import { Toaster } from "react-hot-toast";
 
 import { ProductDetails } from "@pages";
 import { getCartProducts } from "@redux";
-import { Footer, Navbar, RouteNotFound } from "@components";
 import { getMenProducts, getUser, getWomenProducts } from "@redux";
+import { Footer, Navbar, RouteNotFound, ScrollToTop } from "@components";
 import { useToken, useCartState, useUserState, useProductsState } from "@hooks";
 
 const Home = lazy(() => import("./pages/home/Home"));
@@ -33,6 +33,7 @@ function App() {
   return (
     <div className="text-gray-800">
       <Toaster position="bottom-center" reverseOrder={false} />
+      <ScrollToTop />
       <Navbar />
 
       <div className=" px-[5rem] max-md:px-[1rem]">
@@ -40,8 +41,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<RouteNotFound />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/products/:gender" element={<Products />} />
             <Route
               path="/productDetails/:productId"
