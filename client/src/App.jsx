@@ -4,10 +4,16 @@ import { Route, Routes } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
 
+import {
+  Footer,
+  Navbar,
+  RouteNotFound,
+  ScrollToTop,
+  SuspenseFallback,
+} from "@components";
 import { ProductDetails } from "@pages";
 import { getCartProducts } from "@redux";
 import { getMenProducts, getUser, getWomenProducts } from "@redux";
-import { Footer, Navbar, RouteNotFound, ScrollToTop } from "@components";
 import { useToken, useCartState, useUserState, useProductsState } from "@hooks";
 
 const Home = lazy(() => import("./pages/home/Home"));
@@ -37,7 +43,7 @@ function App() {
       <Navbar />
 
       <div className=" px-[5rem] max-md:px-[1rem]">
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<SuspenseFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
