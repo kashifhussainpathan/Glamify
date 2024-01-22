@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -12,7 +12,6 @@ import { getProduct, getSimilarProducts } from "@redux";
 import { useCheckEmptyObject, useProductsState } from "@hooks";
 
 const ProductDetails = () => {
-  const scrollRef = useRef();
   const dispatch = useDispatch();
 
   const pathnames = window.location.pathname?.split("/");
@@ -33,11 +32,6 @@ const ProductDetails = () => {
     if (!useCheckEmptyObject(product)) {
       dispatch(getSimilarProducts({ gender, product_type }));
     }
-    scrollRef.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest",
-    });
   }, [product]);
 
   if (useCheckEmptyObject(product)) {
@@ -45,7 +39,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <div ref={scrollRef}>
+    <div>
       {productStatus === "loading" ? (
         <ProductDetailsLoader />
       ) : (
