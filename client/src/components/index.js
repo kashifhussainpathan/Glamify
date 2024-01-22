@@ -3,6 +3,7 @@ import Signup from "./auth/Signup";
 import Navbar from "./navbar/Navbar";
 import Footer from "./footer/Footer";
 import Address from "./profile/Address";
+import ScrollToTop from "./ScrollToTop";
 import Filters from "./filters/Filters";
 import HomeSlider from "./home/HomeSlider";
 import HomeHeading from "./home/HomeHeading";
@@ -15,12 +16,12 @@ import Pagination from "./pagination/Pagination";
 import ProductLoader from "./products/ProductLoader";
 import CartProductCard from "./cart/CartProductCard";
 import RouteNotFound from "./routeNotFound/RouteNotFound";
-import ErrorFallback from "./errorFallback/ErrorFallback";
+import ErrorFallback from "./fallbackLoaders/ErrorFallback";
 import OrderSummaryLoader from "./cart/OrderSummaryLoader";
 import ProductsCarousel from "./products/ProductsCarousel";
 import ToggleSigninSignup from "./profile/ToggleSigninSignup";
 import ProfileCardLoader from "./profile/components/ProfileCardLoader";
-import ScrollToTop from "./ScrollToTop";
+import SuspenseFallback from "./fallbackLoaders/SuspenseFallback";
 
 export {
   Signup,
@@ -42,6 +43,7 @@ export {
   RouteNotFound,
   CartCardLoader,
   CartProductCard,
+  SuspenseFallback,
   ProductsCarousel,
   ProfileCardLoader,
   OrderSummaryLoader,
