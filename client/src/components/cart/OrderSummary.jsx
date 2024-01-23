@@ -11,8 +11,10 @@ const OrderSummary = ({ cart }) => {
   };
 
   return (
-    <div className="p-4 bg-white rounded-md shadow w-[350px] h-fit">
+    <div className="p-4 bg-white rounded-md shadow-small w-[350px] h-fit">
       <h2 className="text-2xl font-semibold mb-4 text-center">ORDER SUMMARY</h2>
+
+      <hr />
 
       <div className="flex flex-col justify-between gap-2 mb-4">
         {cart?.map(({ _id, name, image_urls, price }) => (

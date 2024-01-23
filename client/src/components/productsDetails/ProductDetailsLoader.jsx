@@ -8,7 +8,7 @@ const ProductDetailsLoader = () => {
       <div>
         <div className=" w-[330px] h-auto">
           {/* Big Image */}
-          <div className="w-full shadow rounded-sm">
+          <div className="w-full shadow-small rounded-md">
             <Skeleton classes=" w-[330px] h-[400px] max-md:w-[50%] max-md:mx-auto" />
           </div>
 

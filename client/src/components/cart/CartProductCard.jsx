@@ -52,7 +52,7 @@ const CartProductCard = ({
   return (
     <div
       key={_id}
-      className="w-[450px] max-md:w-[320px] h-auto flex shadow gap-4 rounded-sm pl-2 relative"
+      className="w-[450px] max-md:w-[320px] h-auto flex shadow-small gap-4 rounded-md pl-2 relative"
     >
       <img
         src={image_urls[0]}

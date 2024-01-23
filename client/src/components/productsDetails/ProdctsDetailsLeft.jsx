@@ -14,7 +14,7 @@ const ProdctsDetailsLeft = ({ product }) => {
   return (
     <div className=" w-[330px] h-auto">
       {/* Big Image */}
-      <div className="w-[full] shadow rounded-sm">
+      <div className="w-[full] shadow-small rounded-md">
         <LazyLoadImage
           src={
             selectedImage !== null ? image_urls[selectedImage] : image_urls[0]

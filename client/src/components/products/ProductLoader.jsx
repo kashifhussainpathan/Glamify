@@ -3,7 +3,7 @@ import { Skeleton } from "@ui";
 
 const ProductLoader = () => {
   return (
-    <div className="w-[210px] p-2 shadow-small rounded-sm cursor-pointer my-1 max-md:w-[150px] ">
+    <div className="w-[210px] p-2 shadow-small rounded-md cursor-pointer my-1 max-md:w-[150px] ">
       <Skeleton classes="md:h-[250px] w-full max-md:w-[120px] max-md:mx-auto max-md:h-[150px]" />
 
       <div className=" px-2 max-md:px-[2px]">

@@ -3,17 +3,9 @@ import React, { useEffect, useState } from "react";
 import { sliderImage1 } from "@assets";
 import { sliderImage2 } from "@assets";
 import { sliderImage3 } from "@assets";
-import { sliderImage4 } from "@assets";
-import { sliderImage5 } from "@assets";
 
 const HomeSlider = () => {
-  const slides = [
-    sliderImage2,
-    sliderImage1,
-    sliderImage3,
-    sliderImage4,
-    sliderImage5,
-  ];
+  const slides = [sliderImage1, sliderImage2, sliderImage3];
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -26,7 +18,7 @@ const HomeSlider = () => {
   }, [currentSlide, slides.length]);
 
   return (
-    <div className="max-md:w-full mx-auto mt-4 overflow-hidden relative">
+    <div className="max-md:w-full mx-auto mt-4 xl:mt-1 overflow-hidden relative">
       <div
         className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}

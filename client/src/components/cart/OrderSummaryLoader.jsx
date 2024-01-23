@@ -3,7 +3,7 @@ import { Skeleton } from "@ui";
 
 const OrderSummaryLoader = () => {
   return (
-    <div className="p-4 bg-white rounded-md shadow w-[350px] h-fit">
+    <div className="p-4 bg-white rounded-md shadow-small w-[350px] h-fit">
       <h2 className="text-2xl font-semibold mb-4 text-center">ORDER SUMMARY</h2>
 
       <div className="flex flex-col justify-between gap-2 mb-4">
