@@ -61,9 +61,9 @@ function App() {
               element={<ProductDetails />}
             />
           </Routes>
-          <Footer />
         </Suspense>
       </div>
+      <Footer />
     </div>
   );
 }
