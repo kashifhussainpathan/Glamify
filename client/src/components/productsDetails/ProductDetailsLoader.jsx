@@ -9,15 +9,15 @@ const ProductDetailsLoader = () => {
         <div className=" w-[330px] h-auto">
           {/* Big Image */}
           <div className="w-full shadow-small rounded-md">
-            <Skeleton classes=" w-[330px] h-[400px] max-md:w-[50%] max-md:mx-auto" />
+            <Skeleton classes=" w-[330px] h-[400px] max-md:h-[200px] max-md:w-[50%] max-md:mx-auto" />
           </div>
 
           {/* Image Previews */}
           <div className="w-full mx-auto mt-2">
             <div className="grid grid-cols-3 place-items-center max:md:gap-1">
-              <Skeleton classes="w-[80px] h-[100px] cursor-pointer mb-2 max-md:w-12" />
-              <Skeleton classes="w-[80px] h-[100px] cursor-pointer mb-2 max-md:w-12" />
-              <Skeleton classes="w-[80px] h-[100px] cursor-pointer mb-2 max-md:w-12" />
+              <Skeleton classes="w-[80px] h-[70px]  cursor-pointer mb-2 max-md:w-12" />
+              <Skeleton classes="w-[80px] h-[70px] cursor-pointer mb-2 max-md:w-12" />
+              <Skeleton classes="w-[80px] h-[70px] cursor-pointer mb-2 max-md:w-12" />
             </div>
           </div>
         </div>

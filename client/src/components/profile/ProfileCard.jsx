@@ -153,7 +153,7 @@ const ProfileCard = () => {
         )}
       </div>
 
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 gap-1">
         {isEditing ? (
           <Button onClick={handleSaveClick} className="flex items-center">
             <FaSave className="mr-2" /> <span> Save </span>
