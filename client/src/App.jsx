@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
@@ -29,8 +29,6 @@ function App() {
   const { currentUser: user } = useUserState();
   const { menProducts, womenProducts } = useProductsState();
 
-  const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchData = async () => {
       if (user === null) await dispatch(getUser(token));
@@ -39,8 +37,6 @@ function App() {
         await dispatch(getMenProducts({ page: 1 }));
       if (womenProducts?.length === 0)
         await dispatch(getWomenProducts({ page: 1 }));
-
-      setIsLoading(false);
     };
 
     fetchData();
@@ -65,10 +61,9 @@ function App() {
               element={<ProductDetails />}
             />
           </Routes>
+          <Footer />
         </Suspense>
       </div>
-
-      {!isLoading && <Footer />}
     </div>
   );
 }
