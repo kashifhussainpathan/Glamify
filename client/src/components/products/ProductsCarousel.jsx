@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import ProductCard from "./ProductCard";
 import ProductLoader from "./ProductLoader";
 import { useProductsCorousel } from "@hooks";
-import { FcPrevious, FcNext } from "react-icons/fc";
+import { GrPrevious, GrNext } from "react-icons/gr";
 
 const ProductsCarousel = ({ products, status }) => {
   const { tabContainerRef, handleScroll, setScrollPosition } =
@@ -19,7 +19,7 @@ const ProductsCarousel = ({ products, status }) => {
         className="absolute left-1 top-0 bottom-0 flex items-center"
         onClick={() => handleScroll("left")}
       >
-        <FcPrevious className="text-gray-800 cursor-pointer bg-white shadow-small rounded-full text-5xl p-3 max-md:text-2xl max-md:p-1 z-999" />
+        <GrPrevious className="text-gray-800 cursor-pointer bg-white shadow-small rounded-full text-5xl p-3 max-md:text-2xl max-md:p-1 z-999" />
       </div>
 
       <div
@@ -39,7 +39,7 @@ const ProductsCarousel = ({ products, status }) => {
         className="absolute right-1 top-0 bottom-0 flex items-center cursor-pointer "
         onClick={() => handleScroll("right")}
       >
-        <FcNext className="text-gray-800 cursor-pointer bg-white shadow-small rounded-full text-5xl p-3 max-md:text-2xl max-md:p-1 z-999" />
+        <GrNext className="text-gray-800 cursor-pointer bg-white shadow-small rounded-full text-5xl p-3 max-md:text-2xl max-md:p-1 z-999" />
       </div>
     </section>
   );
