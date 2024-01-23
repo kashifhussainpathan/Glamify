@@ -26,7 +26,7 @@ export default {
         designColor: "#6366f1",
       },
       boxShadow: {
-        small: "0px 0px 3px 0px rgba(0, 0, 0, 0.15)",
+        small: "rgba(17,17,26,0.1) 0px 0px 16px",
         medium: "0px 8px 16px rgba(35, 38, 59, 0.25)",
         large: "0px 12px 32px rgba(35, 38, 59, 0.25)",
       },
