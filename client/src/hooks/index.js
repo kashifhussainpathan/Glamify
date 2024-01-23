@@ -5,6 +5,7 @@ import useCartState from "./useCartState";
 import useFiltersState from "./useFiltersState";
 import useProductsState from "./useProductsState";
 import useDebounceSearch from "./useDebounceSearch";
+import useProductsCorousel from "./useProductsCorousel";
 import useCheckEmptyObject from "./useCheckEmptyObject";
 import useGetGenderFromPath from "./useGetGenderFromPath";
 
@@ -17,5 +18,6 @@ export {
   useProductsState,
   useDebounceSearch,
   useCheckEmptyObject,
+  useProductsCorousel,
   useGetGenderFromPath,
 };
