@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
@@ -29,11 +29,21 @@ function App() {
   const { currentUser: user } = useUserState();
   const { menProducts, womenProducts } = useProductsState();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    if (user === null) dispatch(getUser(token));
-    if (cart?.length === 0) dispatch(getCartProducts(token));
-    if (menProducts?.length === 0) dispatch(getMenProducts({ page: 1 }));
-    if (womenProducts?.length === 0) dispatch(getWomenProducts({ page: 1 }));
+    const fetchData = async () => {
+      if (user === null) await dispatch(getUser(token));
+      if (cart?.length === 0) await dispatch(getCartProducts(token));
+      if (menProducts?.length === 0)
+        await dispatch(getMenProducts({ page: 1 }));
+      if (womenProducts?.length === 0)
+        await dispatch(getWomenProducts({ page: 1 }));
+
+      setIsLoading(false);
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -58,7 +68,7 @@ function App() {
         </Suspense>
       </div>
 
-      <Footer />
+      {!isLoading && <Footer />}
     </div>
   );
 }
