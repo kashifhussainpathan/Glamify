@@ -14,7 +14,7 @@ const ProductsCarousel = ({ products, status }) => {
   }, [products]);
 
   return (
-    <section className="flex justify-start items-center w-full gap-4 overflow-scroll overflow-x-hidden overflow-y-hidden relative max-md:py-4">
+    <section className="flex justify-start items-center w-full gap-4 overflow-scroll overflow-x-hidden overflow-y-hidden relative">
       <div
         className="absolute left-1 top-0 bottom-0 flex items-center"
         onClick={() => handleScroll("left")}

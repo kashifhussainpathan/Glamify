@@ -55,7 +55,7 @@ const ProductCard = ({ product }) => {
             src={image}
             alt={name}
             loading="lazy"
-            className="h-full w-full transition-all duration-2000 ease-out-expo hover:scale-110 max-md:w-[120px] max-md:mx-auto"
+            className="h-full w-full transition-all duration-2000 ease-out-expo hover:scale-110 max-md:w-[100px] max-md:mx-auto"
           />
         )}
 
@@ -77,7 +77,7 @@ const ProductCard = ({ product }) => {
         <div className=" mt-2 text-sm font-semibold w-[180px] max-md:w-[140px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px]">
           {brand.toUpperCase()}
         </div>
-        <div className=" my-1 text-sm font-normal w-[180px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px] max-md:w-[140px]">
+        <div className=" my-1 text-sm font-normal w-[180px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px] max-md:w-[140px] max-md:my-0 max-md:leading-4">
           {name}
         </div>
       </div>
@@ -98,7 +98,7 @@ const ProductCard = ({ product }) => {
             ({reviews.count})
           </span>
         </div>
-        <div className="font-semibold text-lg max-md:text-base">
+        <div className="font-semibold text-lg max-md:text-base max-md:leading-4">
           €{price.value}
         </div>
       </div>

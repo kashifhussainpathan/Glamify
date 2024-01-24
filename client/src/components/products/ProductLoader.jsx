@@ -4,10 +4,10 @@ import { Skeleton } from "@ui";
 const ProductLoader = () => {
   return (
     <div className="w-[210px] p-2 shadow-small rounded-md cursor-pointer my-1 max-md:w-[150px] ">
-      <Skeleton classes="md:h-[250px] w-full max-md:w-[120px] max-md:mx-auto max-md:h-[150px]" />
+      <Skeleton classes="md:h-[250px] w-full max-md:w-[100px] max-md:mx-auto max-md:h-[150px]" />
 
       <div className=" px-2 max-md:px-[2px]">
-        <Skeleton classes="my-2 h-4 w-[160px] max-md:w-[120px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px]" />
+        <Skeleton classes="my-2 h-4 w-[160px] max-md:w-[120px] max-md:h-3 overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px]" />
 
         <Skeleton classes=" my-1 h-4 max-md:h-2 w-[140px] overflow-hidden overflow-ellipsis whitespace-nowrap max-md:text-[12px] max-md:w-[100px]" />
       </div>
