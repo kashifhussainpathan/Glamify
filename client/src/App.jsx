@@ -31,12 +31,10 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (menProducts?.length === 0) dispatch(getMenProducts({ page: 1 }));
+      if (womenProducts?.length === 0) dispatch(getWomenProducts({ page: 1 }));
       if (user === null) await dispatch(getUser(token));
       if (cart?.length === 0) await dispatch(getCartProducts(token));
-      if (menProducts?.length === 0)
-        await dispatch(getMenProducts({ page: 1 }));
-      if (womenProducts?.length === 0)
-        await dispatch(getWomenProducts({ page: 1 }));
     };
 
     fetchData();
