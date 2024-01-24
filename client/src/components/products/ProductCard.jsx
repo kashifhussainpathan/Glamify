@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      className="w-[210px] p-2 shadow-small rounded-md cursor-pointer my-1 max-md:w-[150px] "
+      className="animate-slidein opacity-0 w-[210px] p-2 shadow-small rounded-md cursor-pointer my-1 max-md:w-[150px] "
       onClick={handleProductClick(_id)}
     >
       <div className="relative h-auto overflow-hidden">

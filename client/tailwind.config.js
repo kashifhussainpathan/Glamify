@@ -1,3 +1,5 @@
+import { transform } from "framer-motion";
+
 const defaultTheme = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -53,6 +55,23 @@ export default {
         999: 999,
         1000: 1000,
         9999: 9999,
+      },
+
+      keyframes: {
+        slidein: {
+          from: {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+      },
+
+      animation: {
+        slidein: "slidein 1s ease 300ms forwards",
       },
     },
   },
