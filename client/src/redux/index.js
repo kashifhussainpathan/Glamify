@@ -9,6 +9,7 @@ import {
   getWomenProducts,
   getSimilarProducts,
   searchProductsAsync,
+  getNextProducts,
 } from "./products/productsThunk";
 import { setToggleAuth } from "./user/userSlice";
 import { getFilters } from "./filters/filtersThunk";
@@ -34,6 +35,7 @@ export {
   setToggleAuth,
   setFiltersData,
   getMenProducts,
+  getNextProducts,
   setCurrentPage,
   getCartProducts,
   getWomenProducts,
