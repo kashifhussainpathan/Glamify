@@ -71,7 +71,7 @@ const Pagination = () => {
     <div className="flex items-center justify-center my-4">
       {currentPage > 1 && (
         <button
-          className="px-2 py-1 mr-2 border rounded hover:bg-gray-200"
+          className="px-2 py-1 mr-2 border rounded text-white bg-gray-900 hover:bg-gray-800 max-md:text-sm"
           onClick={() => handlePageChange(currentPage - 1)}
         >
           Previous
@@ -84,8 +84,8 @@ const Pagination = () => {
             <span className="px-2 py-1">...</span>
           ) : (
             <button
-              className={`px-2 py-1 mx-1 border rounded focus:outline-none hover:bg-gray-200 ${
-                currentPage === page ? "bg-gray-200" : ""
+              className={`px-2 py-1 mx-1 border rounded focus:outline-none text-white bg-gray-900 hover:bg-gray-800 max-md:text-sm ${
+                currentPage === page ? "bg-slate-500" : ""
               }`}
               onClick={() => handlePageChange(page)}
             >
@@ -97,7 +97,7 @@ const Pagination = () => {
 
       {currentPage < totalPages && (
         <button
-          className="px-2 py-1 ml-2 border rounded hover:bg-gray-200"
+          className="px-2 py-1 ml-2 border rounded text-white bg-gray-900 hover:bg-gray-800 max-md:text-sm"
           onClick={() => handlePageChange(currentPage + 1)}
         >
           Next
