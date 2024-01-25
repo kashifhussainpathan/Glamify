@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { setProducts } from "@redux";
 import { Button } from "@components/@ui";
 import memoizeData from "@utils/memoizeData";
 import { useGetGenderFromPath } from "@hooks";
 import { filtersConstants } from "@constants";
 import { LiaFilterSolid } from "react-icons/lia";
+import { setProducts, getNextProducts } from "@redux";
 import { useFiltersState, useProductsState } from "@hooks";
 import { Filters, Pagination, ProductCard, ProductLoader } from "@components";
 import { getProducts, getFilters, removeFilters, setCurrentPage } from "@redux";
@@ -31,6 +31,12 @@ const Products = () => {
       dispatch(getProducts({ page, gender: genderToGetProducts, filters }));
     }
   }, []);
+
+  useEffect(() => {
+    dispatch(
+      getNextProducts({ page: page + 1, gender: genderToGetProducts, filters })
+    );
+  }, [page]);
 
   const handleApplyFiltersClick = () => {
     dispatch(setCurrentPage(1));
