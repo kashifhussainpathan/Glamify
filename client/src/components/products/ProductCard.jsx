@@ -54,7 +54,6 @@ const ProductCard = ({ product }) => {
           <img
             src={image}
             alt={name}
-            loading="lazy"
             className="h-full w-full transition-all duration-2000 ease-out-expo hover:scale-110 max-md:w-[100px] max-md:mx-auto"
           />
         )}
