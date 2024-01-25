@@ -93,3 +93,19 @@ export const getSimilarProducts = createAsyncThunk(
     }
   }
 );
+
+export const getNextProducts = createAsyncThunk(
+  "products/getNextProducts",
+  async ({ page, gender, filters }, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/products/filteredProducts/${gender}/${page}`,
+        { params: { filters } }
+      );
+
+      memoizeData(page, gender, filters, response.data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
