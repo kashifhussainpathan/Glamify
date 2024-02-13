@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 
 import ProductCard from "./ProductCard";
 import ProductLoader from "./ProductLoader";
-import { useProductsCorousel } from "@hooks";
 import { GrPrevious, GrNext } from "react-icons/gr";
+import { useProductsCorousel, useLoaderArray } from "@hooks";
 
 const ProductsCarousel = ({ products, status }) => {
+  const loaderArray = useLoaderArray();
+
   const { tabContainerRef, handleScroll, setScrollPosition } =
     useProductsCorousel();
 
@@ -27,9 +29,7 @@ const ProductsCarousel = ({ products, status }) => {
         ref={tabContainerRef}
       >
         {status === "loading"
-          ? Array.from({ length: 30 })
-              .fill()
-              .map((_, i) => <ProductLoader key={i} />)
+          ? loaderArray.map((_, i) => <ProductLoader key={i} />)
           : products?.map((product) => {
               return <ProductCard key={product._id} product={product} />;
             })}
