@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import {
   OrderSummary,
@@ -18,13 +19,22 @@ const Cart = () => {
       }`}
     >
       <div className="flex flex-col gap-4">
-        {getCartProductsStatus === "loading" ? (
-          <CartCardLoader />
-        ) : (
-          cart?.map((product) => (
-            <CartProductCard {...product} key={product._id} />
-          ))
-        )}
+        <AnimatePresence>
+          {getCartProductsStatus === "loading" ? (
+            <CartCardLoader />
+          ) : (
+            cart?.map((product, index) => (
+              <motion.div
+                key={product._id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.2 }}
+              >
+                <CartProductCard {...product} />
+              </motion.div>
+            ))
+          )}
+        </AnimatePresence>
       </div>
 
       <div>

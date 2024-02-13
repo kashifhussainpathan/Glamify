@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 import { Button } from "@components/@ui";
 import memoizeData from "@utils/memoizeData";
@@ -99,7 +100,14 @@ const Products = () => {
                 <ProductLoader key={i} />
               ))
             : products?.map((product) => (
-                <ProductCard product={product} key={product._id} />
+                <motion.div
+                  key={product._id}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
               ))}
         </div>
 
