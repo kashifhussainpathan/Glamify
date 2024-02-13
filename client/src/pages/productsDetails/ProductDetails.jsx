@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { motion } from "framer-motion";
 
 import {
   ProdctsDetailsLeft,
@@ -43,10 +44,15 @@ const ProductDetails = () => {
       {productStatus === "loading" ? (
         <ProductDetailsLoader />
       ) : (
-        <div className="flex justify-center items-start flex-wrap mt-10">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center items-start flex-wrap mt-10"
+        >
           <ProdctsDetailsLeft product={product} />
           <ProductsDetailsRight product={product} />
-        </div>
+        </motion.div>
       )}
 
       <HomeHeading>EXPLORE SIMILAR PRODUCTS</HomeHeading>
