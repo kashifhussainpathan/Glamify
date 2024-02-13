@@ -9,12 +9,14 @@ import { useGetGenderFromPath } from "@hooks";
 import { filtersConstants } from "@constants";
 import { LiaFilterSolid } from "react-icons/lia";
 import { setProducts, getNextProducts } from "@redux";
-import { useFiltersState, useProductsState } from "@hooks";
+import { useFiltersState, useProductsState, useLoaderArray } from "@hooks";
 import { Filters, Pagination, ProductCard, ProductLoader } from "@components";
 import { getProducts, getFilters, removeFilters, setCurrentPage } from "@redux";
 
 const Products = () => {
   const dispatch = useDispatch();
+
+  const loaderArray = useLoaderArray();
 
   const { gender } = useParams();
   const { filters } = useFiltersState();
@@ -96,9 +98,7 @@ const Products = () => {
 
         <div className="grid grid-cols-1 max-md:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-items-center  gap-4 mt-2">
           {productsStatus === "loading"
-            ? Array.from({ length: 20 }).map((_, i) => (
-                <ProductLoader key={i} />
-              ))
+            ? loaderArray.map((_, i) => <ProductLoader key={i} />)
             : products?.map((product) => (
                 <motion.div
                   key={product._id}
