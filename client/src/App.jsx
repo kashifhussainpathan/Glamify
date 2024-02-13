@@ -11,10 +11,11 @@ import {
   ScrollToTop,
   SuspenseFallback,
 } from "@components";
+import { useToken } from "@hooks";
 import { ProductDetails } from "@pages";
 import { getCartProducts } from "@redux";
+import PrivateRoute from "./components/privateRoute";
 import { getMenProducts, getUser, getWomenProducts } from "@redux";
-import { useToken, useCartState, useUserState, useProductsState } from "@hooks";
 
 const Home = lazy(() => import("./pages/home/Home"));
 const Cart = lazy(() => import("./pages/cart/Cart"));
@@ -25,16 +26,13 @@ function App() {
   const dispatch = useDispatch();
 
   const { token } = useToken();
-  const { cart } = useCartState();
-  const { currentUser: user } = useUserState();
-  const { menProducts, womenProducts } = useProductsState();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (menProducts?.length === 0) dispatch(getMenProducts({ page: 1 }));
-      if (womenProducts?.length === 0) dispatch(getWomenProducts({ page: 1 }));
-      if (user === null) await dispatch(getUser(token));
-      if (cart?.length === 0) await dispatch(getCartProducts(token));
+      dispatch(getMenProducts({ page: 1 }));
+      dispatch(getWomenProducts({ page: 1 }));
+      await dispatch(getUser(token));
+      await dispatch(getCartProducts(token));
     };
 
     fetchData();
@@ -50,7 +48,14 @@ function App() {
         <Suspense fallback={<SuspenseFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/cart"
+              element={
+                <PrivateRoute>
+                  <Cart />
+                </PrivateRoute>
+              }
+            />
             <Route path="*" element={<RouteNotFound />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/products/:gender" element={<Products />} />
